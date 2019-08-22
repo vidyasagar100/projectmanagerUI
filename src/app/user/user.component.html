@@ -1,0 +1,129 @@
+<section>
+  <form [formGroup]="userForm" class="normal-form" (ngSubmit)="submit()">
+     <div class="form-group row" >
+       <div class="col-5">&nbsp;
+        <input id="userId" type="hidden" formControlName="userId">
+       </div>
+       <div class="col-2" align="right" *ngIf="showMsg">&nbsp;
+        
+             Saved sucuessfully
+          </div>
+  </div>
+    <div class="form-group row">
+      <div class="col-2">
+        <label for="firstName" class="cal-form-label">First Name*:</label>
+      </div>
+      <div class="col-2">
+          <input id="firstName" type="text" formControlName="firstName" matInput required>
+      </div>
+      <div class="col-3" align="right" *ngIf="userForm.get('firstName').touched && userForm.get('firstName').invalid">
+        <div>
+          <div *ngIf="userForm.get('firstName').errors.required"><mat-error>FirstName is mandatory</mat-error></div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-2">
+        <label for="lastName" class="cal-form-label">Last Name*:</label>
+      </div>
+      <div class="col-2">
+          <input id="lastName" type="text" formControlName="lastName" matInput required>
+      </div>
+      <div class="col-3" align="right" *ngIf="userForm.get('lastName').touched && userForm.get('lastName').invalid">
+        <div>
+          <div *ngIf="userForm.get('lastName').errors.required"><mat-error>LastName is mandatory</mat-error></div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-2">
+        <label for="employeeId" class="cal-form-label">Employee Id*:</label>
+      </div>
+      <div class="col-2">
+          <input id="employeeId" type="number" formControlName="employeeId" matInput required>
+      </div>
+      <div class="col-3" align="right" *ngIf="userForm.get('employeeId').touched && userForm.get('employeeId').invalid">
+        <div>
+          <div *ngIf="userForm.get('employeeId').errors.required"><mat-error>EmployeeId is mandatory</mat-error></div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-3 text-right">
+        <button mat-raised-button color="primary" type="submit"  value="Add" [disabled]="userForm.invalid"> {{button}}</button>&nbsp;
+        <button mat-raised-button color="warn" type="button" (click)="clear()"> Reset</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6" height="10px">
+       <mat-divider height="5px"></mat-divider>
+</div>
+</div>
+  </form>
+  <form [formGroup]="userViewForm">
+    <div class="row">
+      <div class="col-2">
+        <input id="searchName" type="text" formControlName="searchName"  placeholder="Search" (keyup)="filterUsers()"/>       
+        </div>
+        <div class="col-1">
+          
+        </div> 
+        <div class="col-3">
+            <label class="cal-form-label">Sort:&nbsp;</label>
+        <button mat-stroked-button color="primary" type="accent" (click)="sortByFirstName()">First Name</button>&nbsp;
+        <button mat-stroked-button color="primary" type="accent" (click)="sortBylastName()">Last Name</button>&nbsp;
+        <button mat-stroked-button color="primary" type="accent" (click)="sortByEmployeeId()">Id</button>
+      </div>
+    </div>
+  </form>
+  <div class="row">
+    <div class="col-6">
+      <mat-divider></mat-divider>
+    </div>
+  </div>
+  <div  *ngFor="let user of filteredUserList">
+    <ul class="list-group">
+        <li class="list-group-item" #editUserId value="{{user.userId}}">
+          <div class="row">
+        <div class="col-2">
+          <label class="cal-form-label"> First Name:</label>
+        </div>
+        <div class="col-3"> 
+          <label class="cal-form-label" #op1> {{user.firstName}} </label>
+        </div>
+        <div class="col-2">
+          <button mat-stroked-button color="primary" type="accent" (click)="editUser(editUserId)">Edit</button>
+        </div> 
+        </div>
+    </li>
+    <li class="list-group-item" #deleteUserId value="{{user.userId}}">
+      <div class="row">
+        <div class="col-2">
+          <label class="cal-form-label"> Last Name:</label>
+        </div>
+        <div class="col-3">
+          <label class="cal-form-label"> {{user.lastName}} </label>
+        </div>
+        <div class="col-2">
+          <button mat-stroked-button  color="primary" type="accent"  (click)='deleteUser(deleteUserId)'>Delete</button>
+        </div>
+      </div>
+    </li>
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col-2">
+          <label class="cal-form-label"> Employee Id Name:</label>
+        </div>
+        <div class="col-3">
+          <label class="cal-form-label"> {{user.employeeId}} </label>
+        </div>
+      </div>
+      </li>
+    </ul>
+      <div class="row">
+        <div class="col-7">
+          <mat-divider style="border: 0"></mat-divider>
+        </div>
+      </div> 
+    </div>
+</section>

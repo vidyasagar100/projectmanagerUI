@@ -1,0 +1,104 @@
+<section>
+
+  <form [formGroup]="taskForm" class="normal-form">
+
+    <div class="row">
+      <div class="col-1">
+        <label for="projectDesc" class="cal-form-label">Project*:&nbsp;&nbsp;</label>
+      </div>
+      <div class="col-5">
+        <input class="input-width-320" id="projectDesc" type="text" formControlName="projectDesc" matInput readonly required>&nbsp;&nbsp;
+        <button mat-icon-button (click)="addProject()">Search</button>
+      </div>
+      <div class="col-2">
+        <div>
+          &nbsp; <input  id="projectId" type="hidden" formControlName="projectId">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-1">
+        <label for="task" class="cal-form-label">Task*:&nbsp;&nbsp;</label>
+      </div>
+      <div class="col-5">
+        <input class="input-width-400" id="task" type="text" formControlName="task" matInput required>
+      </div>
+      <div class="col-2" *ngIf="taskForm.get('task').touched && taskForm.get('task').invalid">
+        <div>
+          <div *ngIf="taskForm.get('task').errors.required"><mat-error>Task is mandatory</mat-error></div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-1">
+       &nbsp;
+      </div>
+      <div class="col-5">
+        <mat-checkbox class="form-date-checkbox" type="checkbox" formControlname="taskType" matInput [checked]="taskType == 'true'" (click)="changeTaskType()">Parent task&nbsp;&nbsp;
+        </mat-checkbox>
+      </div>
+      <div class="col-2">
+        <div>
+         &nbsp;
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-1">
+        <label>Priority:&nbsp;&nbsp; </label>
+      </div>
+      <div class="col-5">
+        <mat-slider class="input-width-400" formControlName="priority" matInput min="0" max="30" thumbLabel>Priority
+        </mat-slider>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-1">
+        <label for="parentTask" class="cal-form-label">Parent Task:&nbsp;&nbsp;</label>
+      </div>
+      <div class="col-5">
+        <input class="input-width-320" id="parentTask" type="text" formControlName="parentTask" matInput readonly>&nbsp;&nbsp;
+        <button mat-icon-button (click)="addParentTask()" [disabled] = "taskType">Search</button>
+      </div>
+
+      <div class="col-2">
+        &nbsp; <input  id="parentTaskId" type="hidden" formControlName="parentTaskId">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-1">
+        <label for="startDate" class="cal-form-label">Start Date:&nbsp;&nbsp;</label>
+      </div>
+      <div class="col-5">
+        <input class="input-width-150" id="startDate"  formControlName="startDate" matInput  placeholder="Start Date">&nbsp;&nbsp;
+        <label for="endDate" class="cal-form-label">End Date:&nbsp;&nbsp;</label>
+        <input class="input-width-150" id="endDate"  formControlName="endDate" matInput placeholder="End Date">
+      </div>
+      <div class="col-2">
+        &nbsp;
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-1">
+        <label for="user" class="cal-form-label">User :&nbsp;&nbsp;</label>
+      </div>
+      <div class="col-5">
+        <input class="input-width-320" id="userName" type="text" formControlName="userName" matInput readonly >&nbsp;&nbsp;
+        <button mat-icon-button (click)="addUser()" [disabled] = "!taskType">Search</button>
+      </div>
+      <div class="col-2">
+        &nbsp;<input  id="userId" type="hidden" formControlName="userId">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-2">
+        &nbsp;
+      </div>
+      <div class="col-4">&nbsp;&nbsp;
+        <button mat-raised-button color="primary" type="submit" (click)="saveTask()"> Add Task</button>&nbsp;
+        <button mat-raised-button color="warn" (click)="clearValue()"> Reset</button>
+      </div>
+    </div>
+
+  </form>
+</section>

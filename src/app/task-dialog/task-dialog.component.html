@@ -1,0 +1,25 @@
+
+
+  <div class="row">
+    <div class="col-2">
+
+      <label for="data">Tasks</label>
+    </div>
+    <div class="col-7">
+        <mat-form-field>
+      <input type="text" matInput  [(ngModel)]="data" [matAutocomplete]="auto"/>
+
+       <mat-autocomplete #auto="matAutocomplete" placeholder="" aria-label="" [displayWith]="displayName">
+        <mat-option *ngFor="let task of tasks" [value]="task"  > 
+           {{task.taskDesc}} 
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field> 
+     </div>
+
+    <div class="col-3">
+      <button class="btn btn-success" type='submit'  [mat-dialog-close]="data">Submit</button>
+
+  </div>
+</div>
+

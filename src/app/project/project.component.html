@@ -1,0 +1,164 @@
+<section>
+  <form [formGroup]="projectForm" class="normal-form" (ngSubmit)="onSubmit()">
+<div class="row">
+    <div class="col-6">
+    </div>
+<div class="col-2">
+&nbsp;
+<div>
+  <p  *ngIf="showMsg" class="alert alert-success">
+    Saved sucuessfully
+ </p>
+ </div>
+</div>
+</div>
+    <div class="row">
+      <div class="col-1">
+        <label for="projectDesc" class="cal-form-label">Project*:&nbsp;&nbsp;</label>
+      </div>
+      <div class="col-5">
+        <input class="input-width-400" id="projectDesc" type="text" formControlName="projectDesc" matInput required>
+       
+      </div>
+      <div class="col-2"  *ngIf="projectForm.get('projectDesc').touched && projectForm.get('projectDesc').invalid">
+          <div>
+            <div *ngIf="projectForm.get('projectDesc').errors.required"><mat-error>Project is mandatory</mat-error></div>
+            
+          </div>
+        </div>
+    </div>
+
+    <div class="row">
+      <div class="col-1">
+        &nbsp;
+      </div>
+      <div class="col-5">
+        <mat-checkbox class="form-date-checkbox" formControlname="date" matInput [checked]="date" (click)="changeDate()">Set
+          Start and End Date:&nbsp;&nbsp;
+        </mat-checkbox>
+        <input class="input-width-100" formControlName="startDate" matInput placeholder="Start Date">&nbsp;
+        <input class="input-width-100" formControlName="endDate" matInput placeholder="End Date">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-1">
+        <label>Priority:&nbsp;&nbsp; </label>
+      </div>
+      <div class="col-5">
+        <mat-slider class="input-width-400" formControlName="priority" matInput min="0" max="30" thumbLabel required>Priority
+        </mat-slider>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-1">
+        <label class="cal-form-label">Manager*:&nbsp;&nbsp; </label>
+      </div>
+      <div class="col-5">
+        <input class="input-width-320" formControlName="managerName" matInput readonly required/>&nbsp;&nbsp;
+        <button mat-icon-button (click)="addManager()">Search</button>
+        <input type='hidden' formControlName="managerId" />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-4">
+        &nbsp;
+      </div>
+      <div class="col-2">&nbsp;&nbsp;
+        <button mat-raised-button color="primary" type="submit" [disabled]="projectForm.invalid"> {{button}}</button>&nbsp;
+        <button mat-raised-button color="warn" button="" (click)="clearValue()"> Reset</button>
+      </div>
+    </div>
+
+
+  </form>
+  <form [formGroup]="projectViewForm">
+    <div class="row">
+      <div class="col-5">
+        <mat-divider></mat-divider>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <input class="input-width-500" formControlName="searchProject" matInput placeholder="Search" (keyup)="filterProjects()">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-7">
+        <label class="cal-form-label">Sort By:&nbsp;&nbsp; </label>
+        <button mat-raised-button color="warn" (click)="sortByFirstDate()">Start Date</button>&nbsp;&nbsp;
+        <button mat-raised-button color="warn" (click)="sortByLastDate()">End Date</button>&nbsp;&nbsp;
+        <button mat-raised-button color="warn" (click)="sortByPriorityId()">Priority</button>&nbsp;&nbsp;
+        <button mat-raised-button color="warn" >Completed</button>&nbsp;&nbsp;
+      </div>
+    </div>
+     <div *ngFor="let project of projectFilteredList">
+        <div class="row">
+            <div class="col-5">
+              <mat-divider></mat-divider>
+            </div>
+          </div>
+      <div class="row">
+        <div class="col-3">
+          <div class="row">
+            <label class="cal-form-label">Project:&nbsp;&nbsp; </label>
+          </div>
+          <div class="row">
+            <label class="cal-form-label">No.of.Tasks:&nbsp;&nbsp; {{project.priority}}</label>
+          </div>
+          <div class="row">
+            <label class="cal-form-label">Start Date:&nbsp;&nbsp; {{project.startDate}}</label>
+          </div>
+        </div>
+        <div class="col-3">
+
+          <div class="row">
+            <label class="cal-form-label">{{project.projectDesc}}</label>
+          </div>
+          <div class="row">
+            <label class="cal-form-label">Completed:&nbsp;&nbsp; {{project.priority}}</label>
+          </div>
+          <div class="row">
+            <label class="cal-form-label">End Date:&nbsp;&nbsp; {{project.endDate}}</label>
+          </div>
+        </div>
+
+        <div class="col-1">
+          <div class="row">
+            <label class="cal-form-label">Priority:</label>
+          </div>
+
+          <div class="row">
+            <label class="cal-form-label">{{project.priority}}</label>
+          </div>
+        </div>
+        <div class="col-2">
+          <div class="row" >
+              <button mat-raised-button #updateProjectId value="{{project.projectId}}" color="warn" (click)="updateProject(updateProjectId)">Update</button>&nbsp;&nbsp;
+          </div>
+          <div class="row" >
+              <button mat-raised-button #suspendProjectId value="{{project.projectId}}" color="warn" (click)="suspendProject(suspendProjectId)">Suspend</button>&nbsp;&nbsp;
+          </div>
+          <div class="row" >
+            <button mat-raised-button #completeProjectId value="{{project.projectId}}" color="warn" (click)="completeProject(completeProjectId)">Complete</button>&nbsp;&nbsp;
+        </div>
+        </div>
+
+      </div>
+     
+    </div> 
+
+  </form>
+  <div class="row">
+      <div class="col-7">
+        &nbsp;
+      </div>
+    </div>  
+    <div class="row">
+        <div class="col-7">
+            &nbsp;
+        </div>
+      </div>  
+</section>

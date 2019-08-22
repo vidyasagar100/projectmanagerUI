@@ -1,0 +1,81 @@
+<section>
+
+    <form [formGroup]="taskForm" class="normal-form">
+        <div class="row">
+            <div class="col-12">&nbsp;</div>
+        </div>
+        <div class="row">
+            <div class="col-1">
+                <label for="projectDesc" class="cal-form-label">Project*:&nbsp;&nbsp;</label>
+            </div>
+            <div class="col-4">
+                <input class="input-width-320" id="task" type="text" formControlName="projectDesc" readonly matInput
+                    required>
+            </div>
+            <div class="col-7">
+                <button mat-icon-button (click)="searchProject()">Search</button>&nbsp;&nbsp;
+                <label class="cal-form-label">Sort Task By:&nbsp;&nbsp;</label>
+                <button mat-icon-button (click)="sortByStartDate()">Start Date</button>&nbsp;&nbsp;
+                <button mat-icon-button (click)="sortByEndDate()">End Date</button>&nbsp;&nbsp;
+                <button mat-icon-button (click)="sortByPriority()">Priority</button>&nbsp;&nbsp;
+                <button mat-icon-button (click)="sortByCompleted()">Completed</button>
+                <input id="projectId" type="hidden" formControlName="projectId">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">&nbsp;</div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <mat-divider height="5px"></mat-divider>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                Task
+            </div>
+            <div class="col-3">
+                Parent
+            </div>
+            <div class="col-1">
+                Priority
+            </div>
+            <div class="col-1">
+                Start
+            </div>
+            <div class="col-1">
+                End
+            </div>
+            <div class="col-3">
+                &nbsp;
+            </div>
+        </div>
+        <div *ngFor="let task of filteredTaskList">
+            <ul class="list-group">
+                <li class="list-group-item" #editTaskId value="{{task.taskId}}">
+                    <div class="row">
+                        <div class="col-3">
+                            <label class="cal-form-label"> {{task.taskDesc}} </label>
+                        </div>
+                        <div class="col-3">
+                            <label class="cal-form-label"> {{task.parentId}} </label>
+                        </div>
+                        <div class="col-1">
+                            <label class="cal-form-label"> {{task.priority}} </label>
+                        </div>
+                        <div class="col-1">
+                            <label class="cal-form-label"> {{task.startDate}} </label>
+                        </div>
+                        <div class="col-1">
+                            <label class="cal-form-label"> {{task.endDate}} </label>
+                        </div>
+                        <div class="col-3">
+                                <button mat-stroked-button color="primary" type="accent" (click)="editUser(editUserId)">Edit</button>&nbsp;&nbsp;
+                                <button mat-stroked-button color="primary" type="accent" (click)="editUser(editUserId)">End Task</button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </form>
+</section>

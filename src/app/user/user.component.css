@@ -1,0 +1,46 @@
+mat-form-field.mat-form-field.mat-form-field-appearance-outline > div.mat-form-field-wrapper > div.mat-form-field-flex > div.mat-form-field-infix  { padding: 0.4em 0px }
+mat-form-field.mat-form-field.mat-form-field-appearance-outline > div.mat-form-field-wrapper > div.mat-form-field-flex > div.mat-form-field-infix > span.mat-form-field-label-wrapper { top: -1.5em; }
+
+.mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+    transform: translateY(-1.1em) scale(.75);
+    width: 133.33333%;
+}
+
+input.mat-input-element {height:25px}
+
+div.label {height:30px}
+
+[class*='col-'] {
+    padding: 0px;
+    display: inline;
+    vertical-align: middle;
+}
+
+mat-form-field-infix {
+    height: 40px;
+     padding: 0px;
+}
+
+.mat-list .mat-list-item .mat-list-icon ~ .mat-divider.mat-divider-inset {
+    left: 64px;
+    position: absolute;
+    margin: 0;
+    width: calc(100% - 64px);
+}
+
+/*
+.divider {
+    font-size: 16px;
+    width:75%;
+    padding: 0px;
+    vertical-align: middle;
+}
+*/
+.mat-divider {
+  border-top-color: blue;;
+}
+/*
+.mat-divider mat-divider-horizontal {
+vertical-align: middle;
+}
+*/
