@@ -24,6 +24,7 @@ export class UserComponent implements OnInit {
   constructor(private userService: UserService, public dialog: MatDialog) { }
 
   ngOnInit() {
+    console.log('inside nginit');
     this.initForm();
     this.getUsers();
     this.searchName = '';
@@ -32,7 +33,7 @@ export class UserComponent implements OnInit {
 
   private initForm() {
     this.userForm = new FormGroup({
-      'userId': new FormControl(),
+      'userId': new FormControl(''),
       'firstName': new FormControl('', Validators.required),
       'lastName': new FormControl('', Validators.required),
       'employeeId': new FormControl('', Validators.required)

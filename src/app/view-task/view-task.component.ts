@@ -4,6 +4,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material';
 import { ProjectDialogComponent } from '../project-dialog/project-dialog.component';
 import { TaskService } from '../task/task.services';
 import { Task } from '../classes/Task';
+import {  Router } from '@angular/router';
 
 @Component({
   selector: 'app-view-task',
@@ -12,10 +13,28 @@ import { Task } from '../classes/Task';
 })
 export class ViewTaskComponent implements OnInit {
 
-  constructor(public dialog: MatDialog, private taskService: TaskService) { }
+  dialog: MatDialog;
+  taskService: TaskService;
+  router: Router;
+
+  constructor(dialog: MatDialog, taskService: TaskService)
+  constructor(dialog: MatDialog, taskService: TaskService,router: Router)
+  constructor(dialog?: MatDialog, taskService?: TaskService,router?: Router) { 
+    console.log('::::::::::::Constructor::::::::::::');
+    this.dialog = dialog;
+    this.taskService = taskService;
+    this.router = router;
+  }
 
   ngOnInit() {
+    console.log('::::::::::::InitForm::::::::::::');
     this.initForm();
+    if(this.router!=null) {
+      console.log(":::::::::"+this.router);
+    }
+    else {
+      console.log("::::::::Reouter is null"+this.router);
+    }
   }
 
   taskForm: FormGroup;
@@ -26,15 +45,6 @@ export class ViewTaskComponent implements OnInit {
     this.taskForm = new FormGroup({
       'projectId': new FormControl(),
       'projectDesc': new FormControl()
-      /*  'task': new FormControl(),
-       'taskType': new FormControl(),
-       'parentTask': new FormControl(),
-       'parentTaskId': new FormControl(),
-       'priority': new FormControl(),
-       'startDate': new FormControl(),
-       'endDate': new FormControl(),
-       'userId': new FormControl(),
-       'userName': new FormControl() */
     });
   }
 
@@ -53,10 +63,8 @@ export class ViewTaskComponent implements OnInit {
     });
   }
 
-
   getTasks(projectId) {
     this.taskService.getTasksByProjectId(projectId).subscribe(result => {
-      console.log("::::getTasks:::::" + result);
       this.taskList = result;
       this.filteredTaskList = result;
     });
@@ -74,7 +82,6 @@ export class ViewTaskComponent implements OnInit {
     });
   }
 
-  
   sortByPriority() {
     this.filteredTaskList.sort(((task1, task2) => task1.priority - task2.priority));
   }
@@ -82,13 +89,8 @@ export class ViewTaskComponent implements OnInit {
   private getTime(date?: Date) {
     return date != null ? date.getTime() : 0;
   }
-  /* 
-  
-                <button mat-icon-button (click)="sortByEndDate()">End Date</button>&nbsp;&nbsp;
-                <button mat-icon-button (click)="sortByPriority()">Priority</button>&nbsp;&nbsp;
-                <button mat-icon-button (click)="sortByCompleted()">Completed</button>
-                */
 
-
-
+  editUser(taskId:number){
+    this.router.navigate(['/task',taskId]);
+  }
 }

@@ -7,4 +7,5 @@ export class Task {
   projectId: number;
   taskDesc : string;
   userId : number;
+  parentTaskDesc: string;
 }

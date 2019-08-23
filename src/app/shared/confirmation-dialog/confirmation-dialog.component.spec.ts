@@ -1,22 +1,25 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import * as testing from '@angular/core/testing';
 
 import { ConfirmationDialogComponent } from './confirmation-dialog.component';
-import {MatDialogModule} from '@angular/material';
+import { MatDialogModule, MatInputModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { FakeDialogRef } from '../fake-dialog';
 
 describe('ConfirmationDialogComponent', () => {
   let component: ConfirmationDialogComponent;
-  let fixture: ComponentFixture<ConfirmationDialogComponent>;
+  let fixture: testing.ComponentFixture<ConfirmationDialogComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ ConfirmationDialogComponent ],
-      imports: [MatDialogModule]
+  beforeEach(testing.async(() => {
+    testing.TestBed.configureTestingModule({
+      declarations: [ConfirmationDialogComponent],
+      imports: [MatDialogModule, MatInputModule],
+      providers: [{ provide: MatDialogRef, useClass: FakeDialogRef },{provide: MAT_DIALOG_DATA, useValue: {name: 'test', id: 123}}]
+   //   providers: [ProjectService,{provide: MatDialog, useClass: FakeDialog}]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ConfirmationDialogComponent);
+    fixture = testing.TestBed.createComponent(ConfirmationDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

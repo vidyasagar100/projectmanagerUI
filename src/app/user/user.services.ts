@@ -16,6 +16,7 @@ export class UserService {
     }
 
     getUsers(): Observable<any> {
+        console.log('getting all users');
         return this.httpClient.get("http://localhost:9000/api/users");
     }
 
