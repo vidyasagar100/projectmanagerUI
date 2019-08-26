@@ -58,6 +58,16 @@ describe('UserComponent', () => {
     fixture.detectChanges();
 
     expect(component.userList.length).toBe(1);
-
+    expect(component.filteredUserList.length).toBe(1);
   });
+
+  /* it('sort by firstName',() => {
+    const users = [{firstName: 'first', lastName: 'last'}];
+    spyOn(userService, 'getUsers').and.callFake(() => of(users));
+    component.userViewForm.setValue({searchName: 'first'});
+    fixture.detectChanges();
+    //this.filteredUserList.
+    var index = component.filteredUserList.slice(0,1);
+    expect(component.filteredUserList.length).toBe(1);
+  }); */
 });

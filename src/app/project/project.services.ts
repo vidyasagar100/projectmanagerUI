@@ -1,30 +1,31 @@
-
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient, HttpParams } from '@angular/common/http'
+import { HttpClient } from '@angular/common/http'
 import { Project } from '../classes/Project';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class ProjectService {
 
-    project;
-
-    constructor(private httpClient: HttpClient) {}
+    constructor(private httpClient: HttpClient) { }
 
     getProjects(): Observable<any> {
-         return this.httpClient.get("http://localhost:9000/api/projects");
-        }
-
-    saveProject(project: Project): Observable<Project> {
-        return this.httpClient.post<Project>("http://localhost:9000/api/projects/create",project);
+        const url = environment.url.concat("projects");
+        return this.httpClient.get(url);
     }
 
-    getUsers(): Observable<any> {
-        return this.httpClient.get("http://localhost:9000/api/users");
+    saveProject(project: Project): Observable<Project> {
+        const url = environment.url.concat("projects/create");
+        return this.httpClient.post<Project>(url, project);
     }
 
     updateProject(project: Project): Observable<Project> {
-        const url = "http://localhost:9000/api/projects/update/".concat(String(project.projectId));
-        return this.httpClient.put<Project>(url, project);   
+        const url = environment.url.concat("projects/update/".concat(String(project.projectId)));
+        return this.httpClient.put<Project>(url, project);
+    }
+
+    getProjectById(projectId: number) {
+        const url = environment.url.concat("projects/".concat(String(projectId)));
+        return this.httpClient.get<Project>(url);
     }
 }

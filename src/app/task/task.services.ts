@@ -1,30 +1,36 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient, HttpParams } from '@angular/common/http'
+import { HttpClient } from '@angular/common/http'
 import { Task } from '../classes/task';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class TaskService {
 
-  task;
-
   constructor(private httpClient: HttpClient) { }
 
-  saveTask(task: Task): Observable<Task> {
-    return null;
-  }
-
   getTasks(): Observable<any> {
-    return this.httpClient.get("http://localhost:9000/api/tasks");
-  }
-
-  saveProject(task: Task) {
-    return this.httpClient.post<Task>("http://localhost:9000/api/task/create", task);
-  }
-
-  getTasksByProjectId(projectId: number): Observable<any> {
-    const url = "http://localhost:9000/api/tasks/project/".concat(String(projectId));
+    const url = environment.url.concat("tasks");
     return this.httpClient.get(url);
   }
 
+  saveTask(task: Task) {
+    const url = environment.url.concat("task/create");
+    return this.httpClient.post<Task>(url, task);
+  }
+
+  getTasksByProjectId(projectId: number): Observable<any> {
+    const url = environment.url.concat("tasks/project/".concat(String(projectId)));
+    return this.httpClient.get(url);
+  }
+
+  getTasksById(taskId: string): Observable<any> {
+    const url = environment.url.concat("tasks/".concat(taskId));
+    return this.httpClient.get<Task>(url);
+  }
+
+  updateTask(taskId: string, task: Task) {
+    const url = environment.url.concat("task/update/".concat(taskId));
+    return this.httpClient.put<Task>(url, task);
+  }
 }

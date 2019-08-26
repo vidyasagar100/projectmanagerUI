@@ -5,6 +5,7 @@ import * as Material from "@angular/material";
 @NgModule({
   imports: [
     CommonModule,
+    NgModule,
     Material.MatToolbarModule,
     Material.MatGridListModule,
     Material.MatFormFieldModule,

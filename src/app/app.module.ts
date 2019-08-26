@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, Component } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -28,7 +28,7 @@ import { ConfirmationDialogComponent } from './shared/confirmation-dialog/confir
 import { ProjectDialogComponent } from './project-dialog/project-dialog.component';
 import { TaskDialogComponent } from './task-dialog/task-dialog.component';
 import { ViewTaskComponent } from './view-task/view-task.component';
-
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -58,7 +58,13 @@ import { ViewTaskComponent } from './view-task/view-task.component';
     MatFormFieldModule,
     MatDividerModule,
     FormsModule,
-    MatInputModule
+    MatInputModule,
+    RouterModule.forRoot([
+      {
+        path:'task/:id',
+        component: TaskComponent
+      }
+    ])
    ],
    exports: [
     AppComponent,
@@ -78,4 +84,5 @@ import { ViewTaskComponent } from './view-task/view-task.component';
   bootstrap: [AppComponent],
   entryComponents: [ManagerComponent, NavigationComponent, ProjectDialogComponent, TaskDialogComponent, ConfirmationDialogComponent]
 })
-export class AppModule {  }
+export class AppModule {
+  }

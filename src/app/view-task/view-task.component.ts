@@ -90,7 +90,9 @@ export class ViewTaskComponent implements OnInit {
     return date != null ? date.getTime() : 0;
   }
 
-  editUser(taskId:number){
-    this.router.navigate(['/task',taskId]);
-  }
+  editUser(taskId:HTMLLIElement){
+    console.log('taskid:::::::::'+taskId.value);
+    const url = '/task/' + taskId.value;
+    this.router.navigate([url]);
+  }//{ queryParams: { id: taskId.value}}
 }
