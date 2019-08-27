@@ -62,11 +62,11 @@
       </div>
     </div>
 
-    <div class="row">
+    <div class="row" >
       <div class="col-4">
         &nbsp;
       </div>
-      <div class="col-2">&nbsp;&nbsp;
+      <div class="col-2" >&nbsp;&nbsp;
         <button mat-raised-button color="primary" type="submit" [disabled]="projectForm.invalid"> {{button}}</button>&nbsp;
         <button mat-raised-button color="warn" button="" (click)="clearValue()"> Reset</button>
       </div>
@@ -75,18 +75,18 @@
 
   </form>
   <form [formGroup]="projectViewForm">
-    <div class="row">
-      <div class="col-5">
+<!--     <div class="row">
+      <div class="col-6">
         <mat-divider></mat-divider>
       </div>
-    </div>
+    </div> -->
     <div class="row">
       <div class="col-6">
         <input class="input-width-500" formControlName="searchProject" matInput placeholder="Search" (keyup)="filterProjects()">
       </div>
     </div>
     <div class="row">
-      <div class="col-7">
+      <div class="col-6">
         <label class="cal-form-label">Sort By:&nbsp;&nbsp; </label>
         <button mat-raised-button color="warn" (click)="sortByFirstDate()">Start Date</button>&nbsp;&nbsp;
         <button mat-raised-button color="warn" (click)="sortByLastDate()">End Date</button>&nbsp;&nbsp;
@@ -94,13 +94,18 @@
         <button mat-raised-button color="warn" >Completed</button>&nbsp;&nbsp;
       </div>
     </div>
+    <div class="row">
+      <div class="col-8">
+             <mat-divider></mat-divider>
+      </div>
+    </div>
      <div *ngFor="let project of projectFilteredList">
         <div class="row">
-            <div class="col-5">
-              <mat-divider></mat-divider>
+            <div class="col-9" >
+          &nbsp;
             </div>
           </div>
-      <div class="row">
+      <div class="row" aria-setsize="1">
         <div class="col-3">
           <div class="row">
             <label class="cal-form-label">Project:&nbsp;&nbsp; </label>
@@ -133,21 +138,26 @@
           <div class="row">
             <label class="cal-form-label">{{project.priority}}</label>
           </div>
+          <div class="row">
+            &nbsp;
+          </div>
         </div>
         <div class="col-2">
           <div class="row" >
               <button mat-raised-button #updateProjectId value="{{project.projectId}}" color="warn" (click)="updateProject(updateProjectId)">Update</button>&nbsp;&nbsp;
           </div>
-          <div class="row" >
-              <button mat-raised-button #suspendProjectId value="{{project.projectId}}" color="warn" (click)="suspendProject(suspendProjectId)">Suspend</button>&nbsp;&nbsp;
+          <div class="row" >&nbsp;
+         <!--    <button mat-raised-button #completeProjectId value="{{project.projectId}}" color="warn" (click)="completeProject(completeProjectId)">Complete</button>&nbsp;&nbsp;
+          -->
           </div>
           <div class="row" >
-            <button mat-raised-button #completeProjectId value="{{project.projectId}}" color="warn" (click)="completeProject(completeProjectId)">Complete</button>&nbsp;&nbsp;
-        </div>
+            <button mat-raised-button #suspendProjectId value="{{project.projectId}}" color="warn" (click)="suspendProject(suspendProjectId)">Suspend</button>&nbsp;&nbsp;
+         
+          </div>
         </div>
 
       </div>
-     
+
     </div> 
 
   </form>

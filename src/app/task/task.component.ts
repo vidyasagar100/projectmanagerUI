@@ -49,9 +49,6 @@ export class TaskComponent implements OnInit {
     if(params.get('id')){
       this.editTaskId = params.get('id');
     }
-    else {
-      console.log('::::::::::Add:::::::::;;');
-    }
   });
   this.initForm();
   if(this.editTaskId) {
@@ -70,7 +67,6 @@ setEditValues() {
   });
   this.taskForm.get('taskType').disabled;
    if(this.editTask.parentId) {
-      console.log("parent task id Exists");
       this.taskType = true;
       this.taskForm.get('parentTaskId').setValue(this.editTask.parentId);
       this.taskForm.get('startDate').setValue(this.editTask.startDate);
@@ -80,10 +76,8 @@ setEditValues() {
         this.taskForm.get('parentTask').setValue(result.taskDesc);
       });
    } else {
-    console.log("parent task id Not Exists");
     this.taskType = false;
     this.taskForm.get('userId').setValue(this.editTask.userId);
-    console.log("::::::::::::userid:::set::::"+this.editTask.userId);
     this.taskForm.get('endDate').setValue('');
     this.taskForm.get('startDate').setValue('');
     this.userService.getUserById(this.editTask.userId).subscribe(result => {
@@ -91,14 +85,6 @@ setEditValues() {
       this.taskForm.get('userId').setValue(result.userId);
     })
    }
-   //this.taskForm.get('taskType').disable(false);
-   //this.taskForm.get('taskType').disable;
-   console.log('parenbt.taskid:::::::::'+this.editTask.parentTaskDesc);
-   
-
-
-
- //  this.taskForm.get()
  });
 
  
@@ -181,8 +167,6 @@ setEditValues() {
    const dialogRef = this.dialog.open(TaskDialogComponent,dialogConfig);
 
    dialogRef.afterClosed().subscribe(result => {
-    console.log('back'+result.taskDesc);
-    console.log('back'+result.taskId);
     this.taskForm.get('parentTask').setValue(result.taskDesc);
    this.taskForm.get('parentTaskId').setValue(result.taskId);
   });
@@ -201,9 +185,9 @@ setEditValues() {
   });
 }
 
-clearValue() {
+clear() {
   this.taskType = false;
-  this.taskForm.get('taskType').setValue(false);
+  this.taskForm.get('taskType').setValue(false); 
   this.taskForm.reset();
   this.initForm();
 
@@ -216,17 +200,14 @@ saveTask() {
     task.taskDesc = this.taskForm.controls['task'].value;
     if(this.taskForm.get('taskType').value) {
       task.userId = this.taskForm.controls['userId'].value;
-      console.log("parent task");
     }
     else {
       task.parentId = this.taskForm.controls['parentTaskId'].value;
       task.priority = this.taskForm.controls['priority'].value;
       task.startDate = this.taskForm.controls['startDate'].value;
       task.endDate = this.taskForm.controls['endDate'].value;
-      console.log("child task");
     }
     if(this.taskForm.controls['taskId'].value){
-        console.log('update mode');
         this.taskService.updateTask(this.taskForm.controls['taskId'].value,task).subscribe((result)=>  {
         });
     } else {  

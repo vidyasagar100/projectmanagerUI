@@ -20,21 +20,13 @@ export class ViewTaskComponent implements OnInit {
   constructor(dialog: MatDialog, taskService: TaskService)
   constructor(dialog: MatDialog, taskService: TaskService,router: Router)
   constructor(dialog?: MatDialog, taskService?: TaskService,router?: Router) { 
-    console.log('::::::::::::Constructor::::::::::::');
     this.dialog = dialog;
     this.taskService = taskService;
     this.router = router;
   }
 
   ngOnInit() {
-    console.log('::::::::::::InitForm::::::::::::');
     this.initForm();
-    if(this.router!=null) {
-      console.log(":::::::::"+this.router);
-    }
-    else {
-      console.log("::::::::Reouter is null"+this.router);
-    }
   }
 
   taskForm: FormGroup;
@@ -91,8 +83,7 @@ export class ViewTaskComponent implements OnInit {
   }
 
   editUser(taskId:HTMLLIElement){
-    console.log('taskid:::::::::'+taskId.value);
     const url = '/task/' + taskId.value;
     this.router.navigate([url]);
-  }//{ queryParams: { id: taskId.value}}
+  }
 }

@@ -52,6 +52,7 @@ export class UserComponent implements OnInit {
     this.userForm.controls['firstName'].setValue('');
     this.userForm.controls['lastName'].setValue('');
     this.userForm.controls['employeeId'].setValue('');
+    this.userForm.controls['userId'].setValue('');
   }
 
   submit() {
@@ -60,13 +61,13 @@ export class UserComponent implements OnInit {
       user.firstName = this.userForm.controls['firstName'].value;
       user.lastName = this.userForm.controls['lastName'].value;
       user.employeeId = this.userForm.controls['employeeId'].value;
-      if (this.userForm.controls['userId'].value == null) {
-        this.userService.saveUser(user).subscribe((result) => this.getUsers());
-      }
-      else if (this.userForm.controls['userId'].value != null) {
+      if (this.userForm.controls['userId'].value) {
         user.userId = this.userForm.controls['userId'].value;
         var returnUser = this.userService.updateUser(user).subscribe((result) => this.getUsers());
         this.button = "Add";
+      }
+      else {
+        this.userService.saveUser(user).subscribe((result) => this.getUsers());
       }
       this.showMsg = true;
       this.userForm.reset();
