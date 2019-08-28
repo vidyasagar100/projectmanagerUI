@@ -8,6 +8,9 @@ import {ManagerComponent} from '../manager/manager.component';
 import {ProjectService}from '../project/project.services'
 import {DialogData} from '../classes/dialog.data';
 import { User } from '../classes/User';
+import { TaskService } from '../task/task.services';
+import { UserService } from '../user/user.services';
+import { post } from 'selenium-webdriver/http';
 
 @Component({
 selector: 'project',
@@ -19,8 +22,8 @@ export class ProjectComponent implements OnInit {
 projectForm : FormGroup;
 projectViewForm : FormGroup;
 
-constructor(private projectService: ProjectService,
-    public dialog: MatDialog)  {
+constructor(private projectService: ProjectService,private taskService: TaskService,
+    private userService: UserService, public dialog: MatDialog)  {
   }
 
   projectList:Project[];
@@ -42,6 +45,15 @@ getProject() {
   (
     data=>
     {
+      const tmpProjectList: Project[] = data;
+      for(let pro in tmpProjectList){
+          this.taskService.getTasksByProjectId(tmpProjectList[pro].projectId).subscribe(
+            res => {
+                tmpProjectList[pro].tasks = res.length;
+            }
+          );
+      }
+      
        this.projectList = data;
        this.projectFilteredList = data;
     }
@@ -57,7 +69,8 @@ getProject() {
       'endDate': new FormControl(),
       'priority': new FormControl(),
       'managerId': new FormControl(),
-      'managerName': new FormControl()
+      'managerName': new FormControl(),
+      'status': new FormControl()
     });
     this.projectViewForm = new FormGroup({
       'projectId': new FormControl(),
@@ -67,6 +80,7 @@ getProject() {
       'endDate': new FormControl(),
       'priority': new FormControl(),
       'managerId': new FormControl(),
+      'status': new FormControl(),
       'searchProject': new FormControl()
     });
     this.projectForm.controls['startDate'].disable();
@@ -78,6 +92,7 @@ getProject() {
 
   clearValue() {
     this.projectForm.reset();
+    this.date = false;
   }
 
   changeDate(){
@@ -169,8 +184,8 @@ getProject() {
   }
   
   sortByCompletedDate() {
-/*     const filterBy: string = this.projectViewForm.controls['searchName'].value;
-    this.filteredUserList.sort((user1, user2) => user1.employeeId - user2.employeeId); */
+     const filterBy: string = this.projectViewForm.controls['status'].value;
+    this.projectFilteredList.sort((project1, project2) => (project1.status.localeCompare(project2.status))); 
   }
 
   filterProjects() {
@@ -190,8 +205,11 @@ getProject() {
     this.projectForm.controls['priority'].setValue(selectedProject[0].priority);
     this.projectForm.controls['startDate'].enable();
     this.projectForm.controls['endDate'].enable();
-    //this.projectForm.controls['managerId'].setValue(selectedProject[0].managerId);
-    this.button = "Edit";
+    this.projectForm.controls['managerId'].setValue(selectedProject[0].managerId);
+    this.userService.getUserById(selectedProject[0].managerId).subscribe(user => {
+        this.projectForm.controls['managerName'].setValue(user.firstName + ' ' + user.lastName);
+    });
+    this.button = "Update";
   }
 
   completeProject(projectId: HTMLLIElement) {

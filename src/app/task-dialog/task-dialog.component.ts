@@ -33,14 +33,12 @@ export class TaskDialogComponent implements OnInit {
       result=>
       {
         this.tasks = result;
-        console.log(":::size::"+this.tasks.length);
       }
     );
     
   }
 
   displayName(task?: Task) {
-    console.log("called"+task);
     return task ? task.taskDesc: ' ';
       
   }

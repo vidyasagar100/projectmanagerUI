@@ -48,7 +48,6 @@ export class ViewTaskComponent implements OnInit {
     const dialogRef = this.dialog.open(ProjectDialogComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('back' + result.projectDesc);
       this.taskForm.get('projectDesc').setValue(result.projectDesc);
       this.taskForm.get('projectId').setValue(result.projectId);
       this.getTasks(result.projectId);

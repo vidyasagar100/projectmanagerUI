@@ -41,7 +41,6 @@ export class ProjectDialogComponent implements OnInit {
   }
 
   displayName(project?: Project) {
-    console.log("called"+project);
     return project ? project.projectDesc: ' ';
       
   }

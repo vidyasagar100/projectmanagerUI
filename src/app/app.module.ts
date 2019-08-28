@@ -9,7 +9,7 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { ConfigService } from './config.service';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule,MatSliderModule,MatCheckboxModule} from '@angular/material';
+import { MatFormFieldModule,MatSliderModule,MatCheckboxModule, MAT_CHECKBOX_CLICK_ACTION} from '@angular/material';
 import { MatDialogModule,MatAutocompleteModule,MatDividerModule,MatInputModule} from '@angular/material';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations'
 
@@ -80,7 +80,7 @@ import { RouterModule } from '@angular/router';
     TaskDialogComponent,
     ViewTaskComponent
    ],
-  providers: [ConfigService, ProjectService, UserService, TaskService, NgbModule],
+  providers: [ConfigService, ProjectService, UserService, TaskService, NgbModule, {provide: MAT_CHECKBOX_CLICK_ACTION, useValue: 'check'}],
   bootstrap: [AppComponent],
   entryComponents: [ManagerComponent, NavigationComponent, ProjectDialogComponent, TaskDialogComponent, ConfirmationDialogComponent]
 })

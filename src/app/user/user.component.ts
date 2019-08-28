@@ -24,7 +24,6 @@ export class UserComponent implements OnInit {
   constructor(private userService: UserService, public dialog: MatDialog) { }
 
   ngOnInit() {
-    console.log('inside nginit');
     this.initForm();
     this.getUsers();
     this.searchName = '';

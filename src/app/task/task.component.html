@@ -1,7 +1,11 @@
 <section>
 
   <form [formGroup]="taskForm" class="normal-form">
-
+<div class="row">
+  <div class="col-8" align="right">
+    {{message}}
+  </div>
+</div>
     <div class="row">
       <div class="col-1">
         <label for="projectDesc" class="cal-form-label">Project*:&nbsp;&nbsp;</label>
@@ -34,7 +38,7 @@
        &nbsp;
       </div>
       <div class="col-5">
-        <mat-checkbox class="form-date-checkbox" type="checkbox" formControlname="taskType" matInput [checked]="taskType" (click)="changeTaskType()">Parent task&nbsp;&nbsp;
+        <mat-checkbox class="form-date-checkbox" type="checkbox" formControlname="taskType" matInput [checked]="taskType.checked" [indeterminate]="taskType === false" (click)="changeTaskType()">Parent task&nbsp;&nbsp;
         </mat-checkbox>
       </div>
       <div class="col-2">
@@ -96,7 +100,7 @@
       </div>
       <div class="col-4">&nbsp;&nbsp;
         <button mat-raised-button color="primary" type="submit" (click)="saveTask()"> Add Task</button>&nbsp;
-        <button mat-raised-button color="warn" (click)="clearValue()"> Reset</button>
+        <button mat-raised-button color="warn" type="button" (click)="clearValues()"> Reset</button>
       </div>
     </div>
 

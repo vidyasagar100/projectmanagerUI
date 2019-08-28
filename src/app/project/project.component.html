@@ -1,5 +1,5 @@
 <section>
-  <form [formGroup]="projectForm" class="normal-form" (ngSubmit)="onSubmit()">
+  <form [formGroup]="projectForm" class="normal-form">
 <div class="row">
     <div class="col-6">
     </div>
@@ -111,7 +111,7 @@
             <label class="cal-form-label">Project:&nbsp;&nbsp; </label>
           </div>
           <div class="row">
-            <label class="cal-form-label">No.of.Tasks:&nbsp;&nbsp; {{project.priority}}</label>
+            <label class="cal-form-label">No.of.Tasks:&nbsp;&nbsp; {{project.tasks}}</label>
           </div>
           <div class="row">
             <label class="cal-form-label">Start Date:&nbsp;&nbsp; {{project.startDate}}</label>
@@ -123,7 +123,7 @@
             <label class="cal-form-label">{{project.projectDesc}}</label>
           </div>
           <div class="row">
-            <label class="cal-form-label">Completed:&nbsp;&nbsp; {{project.priority}}</label>
+            <label class="cal-form-label">Completed:&nbsp;&nbsp; </label>
           </div>
           <div class="row">
             <label class="cal-form-label">End Date:&nbsp;&nbsp; {{project.endDate}}</label>
